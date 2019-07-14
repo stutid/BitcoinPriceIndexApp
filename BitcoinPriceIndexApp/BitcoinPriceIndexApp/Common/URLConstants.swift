@@ -22,9 +22,9 @@ enum URLConstants {
         private var endPoint: String {
             switch self {
             case .currentPrice:
-                return "currentprice/USD.json"
+                return "currentprice/%@.json"
             case .historyPrice:
-                return "historical/close.json"
+                return "historical/close.json?index=%@"
             }
         }
     }

@@ -10,11 +10,19 @@ import Foundation
 
 enum Constants: String {
     
+    case SelectCurrency = "What's your currency?"
     case TodaysPrice = "Today's Bitcoin Price"
     case History = "Historic Data"
     case USD = "USD"
+    case GBP = "GBP"
+    case Euro = "Euro"
+    case EUR = "EUR"
     
     var value: String {
         return self.rawValue
     }
+}
+
+struct SelectedCurrency {
+    static var code = Constants.USD.value
 }

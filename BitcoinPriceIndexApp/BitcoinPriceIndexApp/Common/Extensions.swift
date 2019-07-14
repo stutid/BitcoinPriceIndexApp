@@ -20,8 +20,35 @@ extension NSObject {
 extension UIView {
     
     func roundCorners() {
-        self.layer.cornerRadius = 5.0
-        self.layer.masksToBounds = true
+        layer.cornerRadius = 5.0
+        layer.masksToBounds = true
+    }
+}
+
+//MARK:- UIButton Extension
+extension UIButton {
+    
+    func round() {
+        layer.borderWidth = 1.0
+        layer.borderColor = UIColor.white.cgColor
+        roundCorners()
+    }
+    
+    func set(title: String) {
+        setTitle(title, for: .normal)
+        round()
+    }
+    
+    func pulsate() {
+        let pulse = CASpringAnimation(keyPath: "transform.scale")
+        pulse.duration = 0.5
+        pulse.fromValue = 0.95
+        pulse.toValue = 1.0
+        pulse.autoreverses = true
+        pulse.repeatCount = 1
+        pulse.initialVelocity = 0.5
+        pulse.damping = 1.0
+        layer.add(pulse, forKey: nil)
     }
 }
 

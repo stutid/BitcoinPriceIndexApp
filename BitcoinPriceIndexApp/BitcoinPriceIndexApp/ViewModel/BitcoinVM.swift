@@ -22,7 +22,8 @@ class BitcoinVM {
     weak var uidelegate: UIDelegate?
     
     //MARK:- Methods
-    init() {
+    init(with currency: String) {
+        SelectedCurrency.code = currency
         fetchCurrentBPI()
         fetchHistoricBPI()
         dispatchGroup.notify(queue: .main) {
@@ -37,11 +38,9 @@ class BitcoinVM {
     
     func getHistoricBPI(at index: Int) -> (String?, String?) {
         let history = historyArray?[index]
-        
         let date = history?.key.stringAsDate()
         let newFormattedDate = date?.dateAsString()
-        let price = "\((history?.value ?? 0.00).roundTwoPlaces()) \(Constants.USD.value)"
-        
+        let price = "\((history?.value ?? 0.00).roundTwoPlaces()) \(SelectedCurrency.code)"
         return (newFormattedDate, price)
     }
     
@@ -52,7 +51,8 @@ class BitcoinVM {
     //MARK:- API calls
     private func fetchCurrentBPI() {
         dispatchGroup.enter()
-        let url = URL(string: URLConstants.Price.currentPrice.url)
+        let newurl = (URLConstants.Price.currentPrice.url).replacingOccurrences(of: "%@", with: SelectedCurrency.code)
+        let url = URL(string: newurl)
         apiManager.fetch(url: url!) { [weak self] (data, error) in
             guard let data = data else { return }
             do {
@@ -66,7 +66,8 @@ class BitcoinVM {
     
     private func fetchHistoricBPI() {
         dispatchGroup.enter()
-        let url = URL(string: URLConstants.Price.historyPrice.url)
+        let newurl = (URLConstants.Price.historyPrice.url).replacingOccurrences(of: "%@", with: SelectedCurrency.code)
+        let url = URL(string: newurl)
         apiManager.fetch(url: url!) { [weak self] (data, error) in
             guard let data = data else { return }
             do {

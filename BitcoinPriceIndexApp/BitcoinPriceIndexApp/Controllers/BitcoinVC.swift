@@ -16,7 +16,7 @@ class BitcoinVC: UIViewController {
     @IBOutlet weak var historyView: UIView!
     @IBOutlet weak var historyLbl: UILabel!
     @IBOutlet weak var historyTblView: UITableView!
-    private var bitcoinVM = BitcoinVM()
+    var bitcoinVM: BitcoinVM!
     
     //MARK:- Methods
     override func viewDidLoad() {
@@ -29,6 +29,10 @@ class BitcoinVC: UIViewController {
         headerLbl.text = Constants.TodaysPrice.value
         historyView.roundCorners()
         historyLbl.text = Constants.History.value
+    }
+    
+    @IBAction func backBtnClicked(_ sender: UIButton) {
+        navigationController?.popViewController(animated: true)
     }
 }
 
