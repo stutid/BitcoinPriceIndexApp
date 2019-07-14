@@ -8,4 +8,24 @@
 
 import Foundation
 
-
+enum URLConstants {
+    
+    private static let BASE_URL = "https://api.coindesk.com/v1/bpi/"
+    
+    enum Price {
+        case currentPrice, historyPrice
+        
+        var url: String {
+            return "\(BASE_URL)\(endPoint)"
+        }
+        
+        private var endPoint: String {
+            switch self {
+            case .currentPrice:
+                return "currentprice/USD.json"
+            case .historyPrice:
+                return "historical/close.json"
+            }
+        }
+    }
+}

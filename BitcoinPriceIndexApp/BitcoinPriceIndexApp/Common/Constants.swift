@@ -8,3 +8,13 @@
 
 import Foundation
 
+enum Constants: String {
+    
+    case TodaysPrice = "Today's Bitcoin Price"
+    case History = "Historic Data"
+    case USD = "USD"
+    
+    var value: String {
+        return self.rawValue
+    }
+}
